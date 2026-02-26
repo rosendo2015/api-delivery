@@ -4,13 +4,14 @@
   "description": "api para entrega de pedidos",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx --watch src/server.ts"
+    "dev": "tsx --watch --env-file .env src/server.ts"
   },
   "author": "francisco Rosendo",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "express": "^5.2.1",
+    "prisma": "^7.4.1",
     "zod": "^4.3.6"
   },
   "devDependencies": {
