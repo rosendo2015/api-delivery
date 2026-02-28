@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { z } from 'zod';
 
 class UserController {
     index(request: Request, response: Response) {
@@ -6,7 +7,14 @@ class UserController {
     }
 
     create(request: Request, response: Response) {
-        return response.json({ message: "User created" });
+        const bodySchema = z.object({
+            name: z.string().trim().min(3),
+            email: z.email(),
+            password: z.string().min(6)
+        });
+
+        const { name, email, password } = bodySchema.parse(request.body);
+        return response.json({ name, email, password });
     }
 
 }
