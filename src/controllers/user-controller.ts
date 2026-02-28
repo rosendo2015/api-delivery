@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
+import { hash } from "bcrypt"
 
 class UserController {
     index(request: Request, response: Response) {
