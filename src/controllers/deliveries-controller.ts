@@ -1,10 +1,26 @@
 import { Request, Response } from 'express';
+import { prisma } from "@/database/prisma";
+import { z } from 'zod';
+
 class DeliveriesController {
-    index(request: Request, response: Response) {
-        return response.json({ message: 'List deliveries' });
+    async index(request: Request, response: Response) {
+        const deliveries = await prisma.delivery.findMany();
+        return response.json(deliveries);
     }
-    create(request: Request, response: Response) {
-        return response.json({ message: 'Create delivery' });
+    async create(request: Request, response: Response) {
+        const bodySchema = z.object({
+            user_id: z.uuid(),
+            description: z.string(),
+        });
+        const { user_id, description } = bodySchema.parse(request.body);
+        await prisma.delivery.create({
+            data: {
+                userId: user_id,
+                description
+            }
+        });
+
+        return response.status(201).json();
     }
 }
 export { DeliveriesController }
