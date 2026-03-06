@@ -8,7 +8,7 @@ import z from 'zod';
 class SessionsController {
     async index(request: Request, response: Response) {
 
-        return response.json({ message: 'Session listed' });
+        return response.json({ message: "Welcome to the sessions" });
     }
     async create(request: Request, response: Response) {
         const bodySchema = z.object({
