@@ -3,7 +3,8 @@ import { prisma } from '@/database/prisma';
 import { AppError } from '@/utils/AppError';
 import { compare } from 'bcrypt';
 import { Request, Response } from 'express';
-import { sign } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+import { SignOptions } from "jsonwebtoken";
 import z from 'zod';
 class SessionsController {
     async index(request: Request, response: Response) {
@@ -28,7 +29,17 @@ class SessionsController {
         }
 
         const { secret, expiresIn } = authConfig.jwt;
-        const token = sign({ role: user.role ?? "customer" }, secret, { subject: user.id, expiresIn });
+        const options: SignOptions = {
+            subject: String(user.id),   // precisa ser string
+            expiresIn: "1h"             // ou número em segundos
+        };
+
+        const token = jwt.sign(
+            { role: user.role ?? "customer" },
+            secret,
+            options
+        );
+
         const { password: hashedPassword, ...userWithoutPassword } = user;
 
         return response.json({ token, user: userWithoutPassword });
