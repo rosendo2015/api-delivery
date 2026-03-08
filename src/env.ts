@@ -9,7 +9,7 @@ dotenv.config({
 
 // Schema de validação com Zod
 const envSchema = z.object({
-    DATABASE_URL: z.string().url(),
+    DATABASE_URL: z.url(),
     JWT_SECRET: z.string().min(1),
 });
 

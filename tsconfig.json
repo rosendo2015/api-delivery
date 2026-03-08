@@ -2,14 +2,16 @@
   "compilerOptions": {
     "target": "ES2022",
     "lib": [
-      "es2023"
+      "ES2022"
     ],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ],
     },
-    "module": "node16",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,

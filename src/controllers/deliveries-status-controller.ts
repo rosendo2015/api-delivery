@@ -8,7 +8,7 @@ class DeliveriesStatusController {
             id: z.uuid()
         });
         const bodySchema = z.object({
-            status: z.enum(['pending', "processing", 'shipped', 'delivered', 'canceled'])
+            status: z.enum(['pending', "processing", 'shipped', 'delivered', 'cancelled'])
         });
         const { id } = paramsSchema.parse(request.params);
         const { status } = bodySchema.parse(request.body);
