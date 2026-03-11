@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "api para entrega de pedidos",
   "main": "index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "dev": "tsx --watch --env-file .env src/server.ts",
     "test:dev": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --watchAll --runInBand",
-    "build": "tsup src --out-dir build"
+    "build": "tsup src --out-dir build",
+    "start": "node build/server.js"
   },
   "author": "francisco Rosendo",
   "license": "ISC",
