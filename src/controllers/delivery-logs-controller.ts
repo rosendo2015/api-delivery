@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { prisma } from "@/database/prisma";
 import { z } from 'zod';
 import { AppError } from '@/utils/AppError';
+import { de } from 'zod/v4/locales';
 
 class DeliveryLogsController {
     async show(request: Request, response: Response) {
@@ -16,6 +17,10 @@ class DeliveryLogsController {
                 logs: true
             }
         });
+
+        if (!delivery) {
+            return response.status(404).json({ message: "Delivery not found" });
+        }
 
         if (request.user?.role === "customer" && request.user.id !== delivery?.userId) {
             throw new AppError("Permissão para ver apenas seus pedidos", 401);
